@@ -3,14 +3,14 @@
 - Spring을 이용해서 계좌 시스템의 기본적인 구조와 기능을 개발한 토이프로젝트. Spring MVC를 통한 기본적인 웹통신과 
 
 활용 기술 스택
-Spring WEB MVC
-Junit5
-JPA
-H2 DataBase
-Redis
-Lombok
-Mockito
-Intellij IDE 
+- Spring WEB MVC
+- Junit5
+- JPA
+- H2 DataBase
+- Redis
+- Lombok
+- Mockito
+- Intellij IDE 
 
 
 ERD
