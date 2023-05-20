@@ -441,4 +441,53 @@ class TransactionServiceTest {
         //then
         assertEquals(ErrorCode.TOO_OLD_TRANSACTION_TO_CANCEL, exception.getErrorCode());
     }
+
+    @Test
+    void successQueryTransaction(){
+        //given
+        AccountUser user = AccountUser.builder()
+                .id(12L)
+                .name("Pobi").build();
+        Account account = Account.builder()
+                .accountUser(user)
+                .accountStatus(AccountStatus.IN_USE)
+                .balance(10000L)
+                .accountNumber("1111111111")
+                .build();
+        Transaction transaction = Transaction.builder()
+                .account(account)
+                .transactionType(TransactionType.USE)
+                .transactionResultType(TransactionResultType.S)
+                .transactionId("txsId")
+                .transactedAt(LocalDateTime.now().minusYears(2))
+                .amount(1000L)
+                .balanceSnapshot(10000L)
+                .build();
+        given(transactionRepository.findByTransactionId(anyString()))
+                .willReturn(Optional.of(transaction));
+
+        //when
+        TransactionDto transactionDto = transactionService.queryTransaction("12345");
+
+        //then
+        assertEquals(TransactionType.USE,transactionDto.getTransactionType());
+        assertEquals(TransactionResultType.S,transactionDto.getTransactionResultType());
+        assertEquals(1000,transactionDto.getAmount());
+        assertEquals("txsId",transactionDto.getTransactionId());
+    }
+
+    @Test
+    @DisplayName("거래 조회 실패 - 해당 거래 없음")
+    void failQueryTransaction() {
+        //given
+        given(transactionRepository.findByTransactionId(anyString()))
+                .willReturn(Optional.empty());
+
+        //when
+        AccountException exception = assertThrows(AccountException.class,
+                () -> transactionService.queryTransaction("txsId"));
+
+        //then
+        assertEquals(ErrorCode.TRANSACTION_NOT_FOUND, exception.getErrorCode());
+    }
 }
