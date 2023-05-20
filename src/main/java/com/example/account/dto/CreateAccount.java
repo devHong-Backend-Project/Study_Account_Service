@@ -14,7 +14,7 @@ public class CreateAccount {
     public static class Request {
         @NotNull
         @Min(1)
-        private Long id;
+        private Long userId;
 
         @NotNull
         @Min(0)
@@ -27,13 +27,13 @@ public class CreateAccount {
     @AllArgsConstructor
     @Builder
     public static class Response {
-        private Long id;
+        private Long userId;
         private String accountNumber;
         private LocalDateTime registeredAt;
 
         public static Response from(AccountDto accountDto){
             return Response.builder()
-                    .id(accountDto.getUserId())
+                    .userId(accountDto.getUserId())
                     .accountNumber(accountDto.getAccountNumber())
                     .registeredAt(accountDto.getRegisteredAt())
                     .build();

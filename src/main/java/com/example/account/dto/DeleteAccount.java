@@ -16,7 +16,7 @@ public class DeleteAccount {
     public static class Request {
         @NotNull
         @Min(1)
-        private Long id;
+        private Long userId;
 
         @NotBlank
         @Size(min=10,max=10)
@@ -29,13 +29,13 @@ public class DeleteAccount {
     @AllArgsConstructor
     @Builder
     public static class Response {
-        private Long id;
+        private Long userId;
         private String accountNumber;
         private LocalDateTime unRegisteredAt;
 
         public static Response from(AccountDto accountDto){
             return Response.builder()
-                    .id(accountDto.getUserId())
+                    .userId(accountDto.getUserId())
                     .accountNumber(accountDto.getAccountNumber())
                     .unRegisteredAt(accountDto.getUnRegisteredAt())
                     .build();
