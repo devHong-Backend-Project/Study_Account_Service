@@ -1,6 +1,8 @@
 package com.example.account.domain;
 
+import com.example.account.exception.AccountException;
 import com.example.account.type.AccountStatus;
+import com.example.account.type.ErrorCode;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -38,5 +40,12 @@ public class Account {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    // 잔고를 변경시키는 중요한 로직은 domain 내에서 구현하는 것이 좋음. 왜냐면 service에서 로직을 구현할때 balance를 호출하는 일이 없어지기 때문.
+    public void useBalance(Long amount) {
+        if (amount > balance) {
+            throw new AccountException(ErrorCode.AMOUNT_EXCEED_BALANCE);
+        }
+        balance -= amount;
+    }
 
 }
