@@ -1,0 +1,9 @@
+### Send POST request with json body
+POST https://localhost:8080/transaction/use
+Content-Type: application/json
+
+{
+  "id": 1,
+  "accountNumber": "1234567890",
+  "amount": 1234
+}
