@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@EntityListeners(AuditingEntityListener.class)
-public class Account {
+public class Account extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -35,11 +34,6 @@ public class Account {
     private LocalDateTime registeredAt;
     private LocalDateTime unRegisteredAt;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
     // 잔고를 변경시키는 중요한 로직은 domain 내에서 구현하는 것이 좋음. 왜냐면 service에서 로직을 구현할때 balance를 호출하는 일이 없어지기 때문.
     public void useBalance(Long amount) {
         if (amount > balance) {
@@ -49,7 +43,7 @@ public class Account {
     }
 
     public void cancelBalance(Long amount) {
-        if (amount<0) {
+        if (amount < 0) {
             throw new AccountException(ErrorCode.INVALID_REQUEST);
         }
         balance += amount;

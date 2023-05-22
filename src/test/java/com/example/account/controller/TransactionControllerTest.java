@@ -41,8 +41,6 @@ class TransactionControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper; //json->String, String->json
-    @Autowired
-    private TransactionRepository transactionRepository;
 
     @Test
     void successUseBalance() throws Exception {

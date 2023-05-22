@@ -16,8 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@EntityListeners(AuditingEntityListener.class)
-public class Transaction {
+public class Transaction extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -34,11 +33,4 @@ public class Transaction {
 
     private String transactionId;
     private LocalDateTime transactedAt;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
-
 }
