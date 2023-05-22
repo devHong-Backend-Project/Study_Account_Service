@@ -36,11 +36,11 @@ public class AccountService {
         AccountUser accountUser = accountUserRepository.findById(userId)
                 .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND));
 
-        validateCreateAccount(accountUser);
-
         String newAccountNumber = accountRepository.findFirstByOrderByIdDesc()
                 .map(account -> (Integer.parseInt(account.getAccountNumber())) + 1 + "")
                 .orElse("1000000000");
+
+        validateCreateAccount(accountUser, newAccountNumber);
 
         return AccountDto.fromEntity(
                 accountRepository.save(
@@ -71,7 +71,10 @@ public class AccountService {
         return AccountDto.fromEntity(account);
     }
 
-    private void validateCreateAccount(AccountUser accountUser) {
+    private void validateCreateAccount(AccountUser accountUser, String newAccountNumber) {
+        if (accountRepository.findByAccountNumber(newAccountNumber).isPresent()){
+            throw new AccountException(ErrorCode.ACCOUNT_ALREADY_EXIST);
+        }
         if (accountRepository.countByAccountUser(accountUser) >= 10) {
             throw new AccountException(ErrorCode.MAX_ACCOUNT_PER_USER_10);
         }

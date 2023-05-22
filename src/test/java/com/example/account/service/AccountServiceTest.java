@@ -210,6 +210,27 @@ class AccountServiceTest {
     }
 
     @Test
+    @DisplayName("계좌 생성 실패 - 중복된 계좌 존재")
+    void failCreateAccount_AccountAlreadyExist() {
+        //given
+        AccountUser user = AccountUser.builder()
+                .id(15L)
+                .name("Pobi").build();
+        Account account = Account.builder()
+                .accountNumber("1000000000")
+                .build();
+        given(accountUserRepository.findById(anyLong()))
+                .willReturn(Optional.of(user));
+        given(accountRepository.findByAccountNumber(anyString()))
+                .willReturn(Optional.of(account));
+        //when
+        AccountException exception = assertThrows(AccountException.class,
+                () -> accountService.createAccount(1L, 100L));
+        //then
+        assertEquals(ErrorCode.ACCOUNT_ALREADY_EXIST, exception.getErrorCode());
+    }
+
+    @Test
     @DisplayName("계좌 해지 실패 - 해당 유저 없음")
     void failDeleteAccount_UserNotFound() {
         //given
