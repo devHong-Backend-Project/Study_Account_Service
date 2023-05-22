@@ -13,8 +13,9 @@
 - Mockito
 - Intellij IDE 
 
+
 ## ERD
-<img width="502" alt="AccountERD" src="https://github.com/devhongsa/Account_Service/assets/100022877/67aa767c-7336-4226-ab56-fff33e64cecd">
+<img width="563" alt="AccountERD" src="https://github.com/devhongsa/Account_Service/assets/100022877/e981fedb-9e71-4138-a0d3-bd3c7cbff442">
 
 
 ## API 기능
