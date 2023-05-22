@@ -13,7 +13,6 @@ import org.redisson.api.RedissonClient;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.reset;
 
 @ExtendWith(MockitoExtension.class)
 class LockServiceTest {

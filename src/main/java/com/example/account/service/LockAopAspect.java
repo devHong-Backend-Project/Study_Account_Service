@@ -1,7 +1,6 @@
 package com.example.account.service;
 
 import com.example.account.aop.AccountLockIdInterface;
-import com.example.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -9,14 +8,11 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-
 @Aspect
 @Component
 @Slf4j
 @RequiredArgsConstructor
 public class LockAopAspect {
-    private final AccountRepository accountRepository;
     private final LockService lockService;
 
     @Around("@annotation(com.example.account.aop.AccountLock) && args(request)")

@@ -1,8 +1,6 @@
 package com.example.account.domain;
 
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
